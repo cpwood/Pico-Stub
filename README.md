@@ -3,6 +3,8 @@
 ## Introduction
 This repository contains MicroPython stubs for the Raspberry Pi Pico, allowing you to benefit from Python code linting and autocompletion in Visual Studio Code.
 
+![alt text](https://raw.githubusercontent.com/cpwood/Pico-Stub/main/screenshot.jpeg "Screenshot")
+
 ## Using the stubs
 ### First use on your computer
 Clone this repository to your computer. 
