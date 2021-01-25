@@ -1,0 +1,13 @@
+{
+    "python.pythonPath": "/usr/bin/python3",
+    "python.languageServer": "Pylance",
+     "python.analysis.autoSearchPath": true,
+     "python.autoComplete.extraPaths": [
+          "path/to/stub/micropython-rp2-1_13-290/"
+     ],
+    "python.linting.enabled": true,
+    "python.linting.pylintEnabled": true,
+    "python.analysis.extraPaths": [
+        "path/to/stub/micropython-rp2-1_13-290/"
+    ]
+}
