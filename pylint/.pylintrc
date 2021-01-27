@@ -1,5 +1,5 @@
 [MASTER]
-init-hook='import sys;sys.path[1:1] = ["src\lib", "path/to/stub/micropython-rp2-1_13-290/",];'
+init-hook='import sys;sys.path[1:1] = ["src\lib", "path/to/micropython-rp2-1_13-290/stubs/",];'
 
 [MESSAGES CONTROL]
 # Only show warnings with the listed confidence levels. Leave empty to show

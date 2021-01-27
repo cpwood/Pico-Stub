@@ -8,12 +8,11 @@ This repository contains MicroPython stubs for the Raspberry Pi Pico, allowing y
 
 You can set up Visual Studio Code to use these stubs manually or using [Micropy CLI](https://github.com/BradenM/micropy-cli) (recommended). 
 
-* [Using Micropy CLI](micropy/README.md#using-the-stubs) (recommended)
-* [Manual Instructions](micropython-stubber/README.md#using-the-stubs) 
+* [Using Micropy CLI](micropy.md#using-the-stubs) (recommended)
+* [Manual Instructions](micropython-stubber.md#using-the-stubs) 
 
 ## Generating the Stubs
 
-This can be done using either [Micropy CLI](https://github.com/BradenM/micropy-cli) or [Micropython-Stubber](https://github.com/Josverl/micropython-stubber).
+This can be done using [Micropython-Stubber](https://github.com/Josverl/micropython-stubber).
 
-* [Using Micropy CLI](micropy/README.md#generating-the-stubs)
-* [Using Micropython-Stubber](micropython-stubber/README.md#generating-the-stubs)
+* [Using Micropython-Stubber](micropython-stubber.md#generating-the-stubs)
