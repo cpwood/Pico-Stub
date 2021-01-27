@@ -13,6 +13,8 @@ You can set up Visual Studio Code to use these stubs manually or using [Micropy 
 
 ## Generating the Stubs
 
-This can be done using [Micropython-Stubber](https://github.com/Josverl/micropython-stubber).
+This isn't something you *need* to do; the stubs are already included in this repository within the `stubs` directory.
+
+However, if you want to do this yourself, you can do so using [Micropython-Stubber](https://github.com/Josverl/micropython-stubber).
 
 * [Using Micropython-Stubber](micropython-stubber.md#generating-the-stubs)
