@@ -6,7 +6,7 @@
 Having already [installed micropy-cli](https://github.com/BradenM/micropy-cli#getting-started), clone or [download](https://github.com/cpwood/Pico-Stub/archive/main.zip) this repo and issue the following command:
 
 ```
-micropy stubs add "<path to pico micropy folder in this repo>"
+micropy stubs add "<path to pico stubs folder in this repo>"
 ```
 
 For example:
