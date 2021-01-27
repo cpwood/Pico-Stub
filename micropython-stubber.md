@@ -6,6 +6,12 @@
 
 Clone or [download](https://github.com/cpwood/Pico-Stub/archive/main.zip) this repo to your computer. 
 
+If you haven't already installed [Pylint](https://www.pylint.org/), do so as follows:
+
+```
+pip install pylint
+```
+
 ### When starting new projects
 
 1. In your project root, create a `.vscode` folder (note the preceding `.`).

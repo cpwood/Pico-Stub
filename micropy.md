@@ -12,7 +12,13 @@ micropy stubs add "<path to pico micropy folder in this repo>"
 For example:
 
 ```
-micropy stubs add "C:\Pico-Stub\micropy\micropython-rp2-1_13-290"
+micropy stubs add "C:\Pico-Stub\stubs\micropython-rp2-1_13-290"
+```
+
+If you haven't already installed [Pylint](https://www.pylint.org/), do so as follows:
+
+```
+pip install pylint
 ```
 
 ### When starting new projects
