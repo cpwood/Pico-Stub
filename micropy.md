@@ -24,3 +24,10 @@ pip install pylint
 ### When starting new projects
 
 Just follow the [instructions](https://github.com/BradenM/micropy-cli#creating-a-project) over on the Micropy CLI readme!
+
+The recommended `micropy init` templates are:
+
+* `VSCode Settings for Autocompletion/Intellisense`
+* `Pylint MicroPython Settings`
+
+Optionally, if your project will end up in a Git repository, add `Git Ingore Template` too.
