@@ -30,4 +30,4 @@ The recommended `micropy init` templates are:
 * `VSCode Settings for Autocompletion/Intellisense`
 * `Pylint MicroPython Settings`
 
-Optionally, if your project will end up in a Git repository, add `Git Ingore Template` too.
+Optionally, if your project will end up in a Git repository, add `Git Ignore Template` too.
