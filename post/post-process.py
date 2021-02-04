@@ -44,6 +44,9 @@ def main(argv):
 
     # Create info.json by copying modules.json
     shutil.copyfile(folder_path.joinpath('stubs', 'modules.json'), folder_path.joinpath('info.json'))
+
+    # Copy the frozen modules
+    shutil.copytree(parent_path.joinpath('frozen'), folder_path.joinpath('frozen'))
     
     # Set a "firmware/firmware" value in the JSON
     process_json(str(folder_path.joinpath('info.json')))
