@@ -22,4 +22,4 @@ This isn't something you *need* to do; the stubs are already included in this re
 
 However, if you want to do this yourself, you can do so using [Micropython-Stubber](https://github.com/Josverl/micropython-stubber).
 
-* [Using Micropython-Stubber](micropython-stubber.md#generating-the-stubs)**
+* [Using Micropython-Stubber](micropython-stubber.md#generating-the-stubs)
