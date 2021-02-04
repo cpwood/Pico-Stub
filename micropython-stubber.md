@@ -40,4 +40,4 @@ py post-process.py -i "C:\Pico-Stub\stubs\micropython-rp2-1_13-290"
 
 This will arrange the directory structure so the stubs will work with Micropy CLI and will include "frozen" modules.
 
->  If you're preparing a pull request for this repo, place the final folder within the repository's `stubs` folder (the one at the repo root). If a folder with the same name already exists, delete itl=; otherwise, add it.
+>  If you're preparing a pull request for this repo, place the final folder within the repository's `stubs` folder (the one at the repo root). If a folder with the same name already exists, delete it; otherwise, add it.
