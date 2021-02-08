@@ -1386,6 +1386,7 @@ class Timer:
    def init(
       self, 
       *, 
+      freq: float = None,
       mode: int = PERIODIC, 
       period: int = -1, 
       callback: Optional[Callable[["Timer"], None]] = None, 
