@@ -39,8 +39,8 @@ __version__ = "0.6.0"  # Version set by https://github.com/hlovatt/tag2ver
 
 
 from abc import abstractmethod
-from typing import overload, Union, Tuple, TypeVar, Optional, NoReturn, List, Callable
-from typing import Type, Sequence, runtime_checkable, Protocol, ClassVar
+from typing import overload, Union, Tuple, Optional, NoReturn, List, Callable
+from typing import Sequence, ClassVar, Any
 
 class ADC:
    """
@@ -87,18 +87,18 @@ class Pin:
     PULL_DOWN = 2
     PULL_UP = 1
 
-    def __init__(self, id: Union["Pin", str], /, mode: int = IN, pull: int = PULL_UP, af: Union[str, int] = -1):
+    def __init__(self, id: Union[int, str], /, mode: int = IN, pull: int = PULL_UP, af: Union[str, int] = -1):
          """
          Create a new Pin object associated with the id.  If additional arguments are given,
          they are used to initialise the pin.  See :meth:`pin.init`.
          """
 
-    def high():
+    def high(self):
         """
         Sets the pin to high.
         """
 
-    def init():
+    def init(self):
         """
         Initialises the pin.
         """
@@ -111,12 +111,12 @@ class Pin:
             - ``direction`` either ``IRQ_RISING`` or ``IRQ_FALLING``
         """
 
-    def low():
+    def low(self):
         """
         Sets the pin to low.
         """
 
-    def toggle():
+    def toggle(self):
         """
         Sets the pin to high if it's currently low, and vice versa.
         """
@@ -304,75 +304,6 @@ class SPI:
       rate may be determined by printing the SPI object.
       """
 
-
-   @overload
-   def init(
-      self, 
-      baudrate: int = 1_000_000, 
-      *,
-      polarity: int = 0, 
-      phase: int = 0, 
-      bits: int = 8, 
-      firstbit: int = MSB, 
-      sck: Optional[Pin] = None, 
-      mosi: Optional[Pin] = None, 
-      miso: Optional[Pin] = None, 
-   ) -> None:
-      """
-      Initialise the SPI bus with the given parameters:
-   
-        - ``baudrate`` is the SCK clock rate.
-        - ``polarity`` can be 0 or 1, and is the level the idle clock line sits at.
-        - ``phase`` can be 0 or 1 to sample data on the first or second clock edge
-          respectively.
-        - ``bits`` is the width in bits of each transfer. Only 8 is guaranteed to be supported by all hardware.
-        - ``firstbit`` can be ``SPI.MSB`` or ``SPI.LSB``.
-        - ``sck``, ``mosi``, ``miso`` are pins (machine.Pin) objects to use for bus signals. For most
-          hardware SPI blocks (as selected by ``id`` parameter to the constructor), pins are fixed
-          and cannot be changed. In some cases, hardware blocks allow 2-3 alternative pin sets for
-          a hardware SPI block. Arbitrary pin assignments are possible only for a bitbanging SPI driver
-          (``id`` = -1).
-        - ``pins`` - WiPy port doesn't ``sck``, ``mosi``, ``miso`` arguments, and instead allows to
-          specify them as a tuple of ``pins`` parameter.
-   
-      In the case of hardware SPI the actual clock frequency may be lower than the
-      requested baudrate. This is dependant on the platform hardware. The actual
-      rate may be determined by printing the SPI object.
-      """
-
-   @overload
-   def init(
-      self, 
-      baudrate: int = 1_000_000, 
-      *,
-      polarity: int = 0, 
-      phase: int = 0, 
-      bits: int = 8, 
-      firstbit: int = MSB, 
-      pins: Optional[Tuple[Pin, Pin, Pin]] = None, 
-   ) -> None:
-      """
-      Initialise the SPI bus with the given parameters:
-   
-        - ``baudrate`` is the SCK clock rate.
-        - ``polarity`` can be 0 or 1, and is the level the idle clock line sits at.
-        - ``phase`` can be 0 or 1 to sample data on the first or second clock edge
-          respectively.
-        - ``bits`` is the width in bits of each transfer. Only 8 is guaranteed to be supported by all hardware.
-        - ``firstbit`` can be ``SPI.MSB`` or ``SPI.LSB``.
-        - ``sck``, ``mosi``, ``miso`` are pins (machine.Pin) objects to use for bus signals. For most
-          hardware SPI blocks (as selected by ``id`` parameter to the constructor), pins are fixed
-          and cannot be changed. In some cases, hardware blocks allow 2-3 alternative pin sets for
-          a hardware SPI block. Arbitrary pin assignments are possible only for a bitbanging SPI driver
-          (``id`` = -1).
-        - ``pins`` - WiPy port doesn't ``sck``, ``mosi``, ``miso`` arguments, and instead allows to
-          specify them as a tuple of ``pins`` parameter.
-   
-      In the case of hardware SPI the actual clock frequency may be lower than the
-      requested baudrate. This is dependant on the platform hardware. The actual
-      rate may be determined by printing the SPI object.
-      """
-
    def deinit(self) -> None:
       """
       Turn off the SPI bus.
@@ -385,7 +316,7 @@ class SPI:
        Returns a ``bytes`` object with the data that was read.
       """
 
-   def readinto(self, buf: _AnyWritableBuf, write: int = 0x00, /) -> Optional[int]:
+   def readinto(self, buf: bytearray, write: int = 0x00, /) -> Optional[int]:
       """
        Read into the buffer specified by ``buf`` while continuously writing the
        single byte given by ``write``.
@@ -394,7 +325,7 @@ class SPI:
        Note: on WiPy this function returns the number of bytes read.
       """
 
-   def write(self, buf: _AnyReadableBuf, /) -> Optional[int]:
+   def write(self, buf: bytearray, /) -> Optional[int]:
       """
        Write the bytes contained in ``buf``.
        Returns ``None``.
@@ -402,7 +333,7 @@ class SPI:
        Note: on WiPy this function returns the number of bytes written.
       """
 
-   def write_readinto(self, write_buf: _AnyReadableBuf, read_buf: _AnyWritableBuf, /) -> Optional[int]:
+   def write_readinto(self, write_buf: bytearray, read_buf: bytearray, /) -> Optional[int]:
       """
        Write the bytes from ``write_buf`` while reading into ``read_buf``.  The
        buffers can be the same or different, but both buffers must have the
@@ -549,41 +480,6 @@ class SoftSPI:
       phase: int = 0, 
       bits: int = 8, 
       firstbit: int = MSB, 
-      sck: Optional[Pin] = None, 
-      mosi: Optional[Pin] = None, 
-      miso: Optional[Pin] = None, 
-   ) -> None:
-      """
-      Initialise the SPI bus with the given parameters:
-   
-        - ``baudrate`` is the SCK clock rate.
-        - ``polarity`` can be 0 or 1, and is the level the idle clock line sits at.
-        - ``phase`` can be 0 or 1 to sample data on the first or second clock edge
-          respectively.
-        - ``bits`` is the width in bits of each transfer. Only 8 is guaranteed to be supported by all hardware.
-        - ``firstbit`` can be ``SPI.MSB`` or ``SPI.LSB``.
-        - ``sck``, ``mosi``, ``miso`` are pins (machine.Pin) objects to use for bus signals. For most
-          hardware SPI blocks (as selected by ``id`` parameter to the constructor), pins are fixed
-          and cannot be changed. In some cases, hardware blocks allow 2-3 alternative pin sets for
-          a hardware SPI block. Arbitrary pin assignments are possible only for a bitbanging SPI driver
-          (``id`` = -1).
-        - ``pins`` - WiPy port doesn't ``sck``, ``mosi``, ``miso`` arguments, and instead allows to
-          specify them as a tuple of ``pins`` parameter.
-   
-      In the case of hardware SPI the actual clock frequency may be lower than the
-      requested baudrate. This is dependant on the platform hardware. The actual
-      rate may be determined by printing the SPI object.
-      """
-
-   @overload
-   def init(
-      self, 
-      baudrate: int = 1_000_000, 
-      *,
-      polarity: int = 0, 
-      phase: int = 0, 
-      bits: int = 8, 
-      firstbit: int = MSB, 
       pins: Optional[Tuple[Pin, Pin, Pin]] = None, 
    ) -> None:
       """
@@ -620,7 +516,7 @@ class SoftSPI:
        Returns a ``bytes`` object with the data that was read.
       """
 
-   def readinto(self, buf: _AnyWritableBuf, write: int = 0x00, /) -> Optional[int]:
+   def readinto(self, buf: bytearray, write: int = 0x00, /) -> Optional[int]:
       """
        Read into the buffer specified by ``buf`` while continuously writing the
        single byte given by ``write``.
@@ -629,7 +525,7 @@ class SoftSPI:
        Note: on WiPy this function returns the number of bytes read.
       """
 
-   def write(self, buf: _AnyReadableBuf, /) -> Optional[int]:
+   def write(self, buf: bytearray, /) -> Optional[int]:
       """
        Write the bytes contained in ``buf``.
        Returns ``None``.
@@ -637,7 +533,7 @@ class SoftSPI:
        Note: on WiPy this function returns the number of bytes written.
       """
 
-   def write_readinto(self, write_buf: _AnyReadableBuf, read_buf: _AnyWritableBuf, /) -> Optional[int]:
+   def write_readinto(self, write_buf: bytearray, read_buf: bytearray, /) -> Optional[int]:
       """
        Write the bytes from ``write_buf`` while reading into ``read_buf``.  The
        buffers can be the same or different, but both buffers must have the
@@ -775,7 +671,7 @@ class I2C:
       These methods are only available on the `machine.SoftI2C` class.
       """
 
-   def readinto(self, buf: _AnyWritableBuf, nack: bool = True, /) -> None:
+   def readinto(self, buf: bytearray, nack: bool = True, /) -> None:
       """
       Reads bytes from the bus and stores them into *buf*.  The number of bytes
       read is the length of *buf*.  An ACK will be sent on the bus after
@@ -794,7 +690,7 @@ class I2C:
       These methods are only available on the `machine.SoftI2C` class.
       """
 
-   def write(self, buf: _AnyReadableBuf, /) -> int:
+   def write(self, buf: bytearray, /) -> int:
       """
       Write the bytes from *buf* to the bus.  Checks that an ACK is received
       after each byte and stops transmitting the remaining bytes if a NACK is
@@ -825,7 +721,7 @@ class I2C:
       operations that target a given slave device.
       """
 
-   def readfrom_into(self, addr: int, buf: _AnyWritableBuf, stop: bool = True, /) -> None:
+   def readfrom_into(self, addr: int, buf: bytearray, stop: bool = True, /) -> None:
       """
       Read into *buf* from the slave specified by *addr*.
       The number of bytes read will be the length of *buf*.
@@ -841,7 +737,7 @@ class I2C:
       operations that target a given slave device.
       """
 
-   def writeto(self, addr: int, buf: _AnyWritableBuf, stop: bool = True, /) -> int:
+   def writeto(self, addr: int, buf: bytearray, stop: bool = True, /) -> int:
       """
       Write the bytes from *buf* to the slave specified by *addr*.  If a
       NACK is received following the write of a byte from *buf* then the
@@ -861,7 +757,7 @@ class I2C:
    def writevto(
       self, 
       addr: int, 
-      vector: Sequence[_AnyReadableBuf], 
+      vector: Sequence[bytearray], 
       stop: bool = True, 
       /
    ) -> int:
@@ -908,7 +804,7 @@ class I2C:
       self, 
       addr: int, 
       memaddr: int, 
-      buf: _AnyWritableBuf, 
+      buf: bytearray, 
       /, 
       *, 
       addrsize: int = 8
@@ -932,7 +828,7 @@ class I2C:
       methods are convenience functions to communicate with such devices.
       """
 
-   def writeto_mem(self, addr: int, memaddr: int, buf: _AnyReadableBuf, /, *, addrsize: int = 8) -> None:
+   def writeto_mem(self, addr: int, memaddr: int, buf: bytearray, /, *, addrsize: int = 8) -> None:
       """
       Write *buf* to the slave specified by *addr* starting from the
       memory address specified by *memaddr*.
@@ -974,7 +870,6 @@ class PWM:
                 sleep(0.0001)
     """
 
-    @overload
     def __init__(self, pin: Pin):
       """
       Construct and return a new PWM object using the following parameters:
@@ -1142,7 +1037,7 @@ class SoftI2C:
       These methods are only available on the `machine.SoftI2C` class.
       """
 
-   def readinto(self, buf: _AnyWritableBuf, nack: bool = True, /) -> None:
+   def readinto(self, buf: bytearray, nack: bool = True, /) -> None:
       """
       Reads bytes from the bus and stores them into *buf*.  The number of bytes
       read is the length of *buf*.  An ACK will be sent on the bus after
@@ -1161,7 +1056,7 @@ class SoftI2C:
       These methods are only available on the `machine.SoftI2C` class.
       """
 
-   def write(self, buf: _AnyReadableBuf, /) -> int:
+   def write(self, buf: bytearray, /) -> int:
       """
       Write the bytes from *buf* to the bus.  Checks that an ACK is received
       after each byte and stops transmitting the remaining bytes if a NACK is
@@ -1192,7 +1087,7 @@ class SoftI2C:
       operations that target a given slave device.
       """
 
-   def readfrom_into(self, addr: int, buf: _AnyWritableBuf, stop: bool = True, /) -> None:
+   def readfrom_into(self, addr: int, buf: bytearray, stop: bool = True, /) -> None:
       """
       Read into *buf* from the slave specified by *addr*.
       The number of bytes read will be the length of *buf*.
@@ -1208,7 +1103,7 @@ class SoftI2C:
       operations that target a given slave device.
       """
 
-   def writeto(self, addr: int, buf: _AnyWritableBuf, stop: bool = True, /) -> int:
+   def writeto(self, addr: int, buf: bytearray, stop: bool = True, /) -> int:
       """
       Write the bytes from *buf* to the slave specified by *addr*.  If a
       NACK is received following the write of a byte from *buf* then the
@@ -1228,7 +1123,7 @@ class SoftI2C:
    def writevto(
       self, 
       addr: int, 
-      vector: Sequence[_AnyReadableBuf], 
+      vector: Sequence[bytearray], 
       stop: bool = True, 
       /
    ) -> int:
@@ -1275,7 +1170,7 @@ class SoftI2C:
       self, 
       addr: int, 
       memaddr: int, 
-      buf: _AnyWritableBuf, 
+      buf: bytearray, 
       /, 
       *, 
       addrsize: int = 8
@@ -1299,7 +1194,7 @@ class SoftI2C:
       methods are convenience functions to communicate with such devices.
       """
 
-   def writeto_mem(self, addr: int, memaddr: int, buf: _AnyReadableBuf, /, *, addrsize: int = 8) -> None:
+   def writeto_mem(self, addr: int, memaddr: int, buf: bytearray, /, *, addrsize: int = 8) -> None:
       """
       Write *buf* to the slave specified by *addr* starting from the
       memory address specified by *memaddr*.
@@ -1460,7 +1355,7 @@ class UART:
       """
 
    @overload
-   def readinto(self, buf: _AnyWritableBuf, /) -> Optional[int]:
+   def readinto(self, buf: bytearray, /) -> Optional[int]:
       """
       Read bytes into the ``buf``.  If ``nbytes`` is specified then read at most
       that many bytes.  Otherwise, read at most ``len(buf)`` bytes.
@@ -1470,7 +1365,7 @@ class UART:
       """
 
    @overload
-   def readinto(self, buf: _AnyWritableBuf, nbytes: int, /) -> Optional[int]:
+   def readinto(self, buf: bytearray, nbytes: int, /) -> Optional[int]:
       """
       Read bytes into the ``buf``.  If ``nbytes`` is specified then read at most
       that many bytes.  Otherwise, read at most ``len(buf)`` bytes.
@@ -1488,7 +1383,7 @@ class UART:
       Return value: the line read or ``None`` on timeout if no data is available.
       """
 
-   def write(self, buf: _AnyWritableBuf, /) -> Optional[int]:
+   def write(self, buf: bytearray, /) -> Optional[int]:
       """
       Write the buffer of bytes to the bus.  If characters are 7 or 8 bits wide
       then each byte is one character.  If characters are 9 bits wide then two

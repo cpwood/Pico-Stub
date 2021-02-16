@@ -1,4 +1,5 @@
-# make_stub_files: Wed 03 Feb 2021 at 08:14:26
+from typing import Any
+
 class Event:
     def __init__(self) -> None: ...
     def is_set(self) -> Any: ...

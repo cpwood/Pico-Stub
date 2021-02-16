@@ -1,2 +1,3 @@
 board/stubs
 .micropy
+.DS_Store

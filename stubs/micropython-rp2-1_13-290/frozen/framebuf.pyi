@@ -7,7 +7,8 @@ from typing import Any, Optional, overload
 
 
 class FrameBuffer:
-    """The FrameBuffer class provides a pixel buffer which can be drawn upon with
+    """
+    The FrameBuffer class provides a pixel buffer which can be drawn upon with
     pixels, lines, rectangles, text and even other FrameBuffer's. It is useful
     when generating output for displays.
 
@@ -25,7 +26,8 @@ class FrameBuffer:
 
     def __init__(self, buffer: Any, width: int, height: int, format: int,
                  stride: int = 0) -> None:
-        """Construct a FrameBuffer object.  The parameters are:
+        """
+        Construct a FrameBuffer object.  The parameters are:
 
             - *buffer* is an object with a buffer protocol which must be large
               enough to contain every pixel defined by the width, height and
@@ -65,18 +67,24 @@ class FrameBuffer:
         ...
 
     def hline(self, x: int, y: int, w: int, c: int) -> None:
-        """Draw a horizontal line from a set of coordinates using the given color and
-        a thickness of 1 pixel."""
+        """
+        Draw a horizontal line from a set of coordinates using the given color and
+        a thickness of 1 pixel.
+        """
         ...
 
     def vline(self, x: int, y: int, h: int, c: int) -> None:
-        """Draw a vertical line from a set of coordinates using the given color and
-        a thickness of 1 pixel."""
+        """
+        Draw a vertical line from a set of coordinates using the given color and
+        a thickness of 1 pixel.
+        """
         ...
 
     def line(self, x1: int, y1: int, x2: int, y2: int, c: int) -> None:
-        """Draw a line from a set of coordinates using the given color and
-        a thickness of 1 pixel."""
+        """
+        Draw a line from a set of coordinates using the given color and
+        a thickness of 1 pixel.
+        """
         ...
 
     def rect(self, x: int, y: int, w: int, h: int, c: int) -> None:
@@ -88,7 +96,8 @@ class FrameBuffer:
         ...
 
     def text(self, s: str, x: int, y: int, c: int = 1) -> None:
-        """Write text to the FrameBuffer using the the coordinates as the upper-left
+        """
+        Write text to the FrameBuffer using the the coordinates as the upper-left
         corner of the text. The color of the text can be defined by the optional
         argument but is otherwise a default value of 1. All characters have
         dimensions of 8x8 pixels and there is currently no way to change the font.
@@ -96,13 +105,15 @@ class FrameBuffer:
         ...
 
     def scroll(self, xstep: int , ystep: int) -> None:
-        """Shift the contents of the FrameBuffer by the given vector. This may
+        """
+        Shift the contents of the FrameBuffer by the given vector. This may
         leave a footprint of the previous colors in the FrameBuffer.
         """
         ...
 
     def blit(self, fbuf: FrameBuffer, x: int, y: int, key: Optional[int] = None) -> None:
-        """Draw another FrameBuffer on top of the current one at the given coordinates.
+        """
+        Draw another FrameBuffer on top of the current one at the given coordinates.
 
         If *key* is specified then it should be a color integer and the
         corresponding color will be considered transparent: all pixels with that
@@ -114,11 +125,17 @@ class FrameBuffer:
         """
         ...
 
+def FrameBuffer1(self, buffer: Any, width: int, height: int, stride: int = 0) -> None:
+    """
+    Old FrameBuffer1 class.
+    """
+    ...
 
-MONO_VLSB: int
-MONO_HLSB: int
-MONO_HMSB: int
-RGB565: int
-GS2_HMSB: int
-GS4_HMSB: int
-GS8: int
+GS2_HMSB = 5
+GS4_HMSB = 2
+GS8 = 6
+MONO_HLSB = 3
+MONO_HMSB = 4
+MONO_VLSB = 0
+MVLSB = 0
+RGB565 = 1

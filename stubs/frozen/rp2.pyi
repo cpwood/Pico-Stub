@@ -1,7 +1,5 @@
-import machine
-from abc import abstractmethod
-from typing import overload, Union, Tuple, TypeVar, Optional, NoReturn, List, Callable
-from typing import Type, Sequence, runtime_checkable, Protocol, ClassVar
+from machine import Pin
+from typing import Sequence, Any, Iterable
 
 # make_stub_files: Wed 03 Feb 2021 at 08:12:32
 class Flash:
@@ -56,6 +54,9 @@ class PIO:
     OUT_LOW = 2
     SHIFT_LEFT = 0
     SHIFT_RIGHT = 1
+
+    def __init__(self, pin:int) -> None: 
+        ...
 
     def add_program(self, prog):
         """
@@ -132,7 +133,29 @@ class PIOASMEmit:
 class StateMachine:
     # Determined from: https://github.com/raspberrypi/micropython/blob/1196871a0f2f974b03915e08cfcc0433de4b8a64/ports/rp2/rp2_pio.c
     # Documentation put together via research and may be flawed!
-    def __init__(self, id, prog, *, set_base: Pin=None, freq: int=0, set_pins: Pin=None, sideset_pins: Pin=None, in_base: Pin=None, out_base: Pin=None):
+    def __init__(self, id, prog, freq: int=-1, *, in_base: Pin=None, out_base: Pin=None, set_base: Pin=None, jmp_pin: Pin=None, sideset_base: Pin=None, in_shiftdir: int=None, out_shiftdir: int=None, push_thresh: int=None, pull_thresh: int=None):
+        """
+        Create a new StateMachine containing two First-In-First-Out (FIFO)
+        structures: one for incoming data and another for outgoing data.
+
+        The input FIFO is known as the RX FIFO and the output FIFO is known
+        as the TX FIFO.
+
+        Each FIFO can contain up to four words of data (each 32 bits) and can
+        be linked to Direct Memory Access (DMA).
+
+        The FIFO structures are linked to the state machine via the input and
+        output shift registers called X and Y. These are for storing temporary
+        data.
+
+        A Pico board has 8 available state machines.
+
+            - *id* should be a number between 0 and 7 (the Pico has 8 machines).
+            - *prog* is the assembly code to execute (decorated by ``@asm_pio``).
+            - *freq* is the frequency at which the code should be executed (in milliseconds).
+        """
+
+    def init(self, id, prog, freq: int=-1, *, in_base: Pin=None, out_base: Pin=None, set_base: Pin=None, jmp_pin: Pin=None, sideset_base: Pin=None, in_shiftdir: int=None, out_shiftdir: int=None, push_thresh: int=None, pull_thresh: int=None):
         """
         Create a new StateMachine containing two First-In-First-Out (FIFO)
         structures: one for incoming data and another for outgoing data.
@@ -187,7 +210,7 @@ class StateMachine:
             - *shift* is an optional number of places to shift.
         """
 
-def asm_pio(set_init: int = None, out_shiftdir: int = None, autopull: bool = None, pull_thresh: int = None, set_pins: int([]) = None, sideset_pins: int = None, sideset_init: int = None, out_init: int = None, autopush: bool = None, push_thresh: int = None, in_base: int = None, out_base: int = None) -> Any:
+def asm_pio(set_init: int = None, out_shiftdir: int = None, autopull: bool = None, pull_thresh: int = None, set_pins: Iterable[Sequence[int]] = None, sideset_pins: int = None, sideset_init: int = None, out_init: int = None, autopush: bool = None, push_thresh: int = None, in_base: int = None, out_base: int = None) -> Any:
     """
     This decorator lets MicroPython know that the method is written in PIO assembly.
 
@@ -198,9 +221,10 @@ def asm_pio(set_init: int = None, out_shiftdir: int = None, autopull: bool = Non
     # ? 0: return emit.prog
     #   1: return dec
     # ? 1: return dec
-    def dec(f: Any) -> Any: ...
-        #   0: return emit.prog
-        # ? 0: return emit.prog
+
 def asm_pio_encode(instr: str, sideset_count: int) -> Any: ...
     #   0: return emit.prog[_PROG_DATA][]
     # ? 0: return emit.prog[_PROG_DATA][]
+
+def const(in:Any) -> Any:
+    pass
