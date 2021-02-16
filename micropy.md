@@ -6,13 +6,13 @@
 Having already [installed micropy-cli](https://github.com/BradenM/micropy-cli#getting-started), clone or [download](https://github.com/cpwood/Pico-Stub/archive/main.zip) this repo and issue the following command:
 
 ```
-micropy stubs add "<path to pico stubs folder in this repo>"
+micropy stubs add "<path to dist/micropy-cli folder in this repo>"
 ```
 
 For example:
 
 ```
-micropy stubs add "C:\Pico-Stub\stubs\micropython-rp2-1_13-290"
+micropy stubs add "C:\Pico-Stub\dist\micropy-cli"
 ```
 
 If you haven't already installed [Pylint](https://www.pylint.org/), do so as follows:
@@ -31,3 +31,4 @@ The recommended `micropy init` templates are:
 * `Pylint MicroPython Settings`
 
 Optionally, if your project will end up in a Git repository, add `Git Ignore Template` too.
+
