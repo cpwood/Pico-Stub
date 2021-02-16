@@ -226,5 +226,5 @@ def asm_pio_encode(instr: str, sideset_count: int) -> Any: ...
     #   0: return emit.prog[_PROG_DATA][]
     # ? 0: return emit.prog[_PROG_DATA][]
 
-def const(in:Any) -> Any:
+def const(value:Any) -> Any:
     pass

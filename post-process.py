@@ -5,7 +5,7 @@ import shutil
 from pathlib import Path
 
 def main():
-    folder_path = Path(os.path.dirname(os.path.realpath(__file__))).parent
+    folder_path = Path(os.path.dirname(os.path.realpath(__file__)))
     print('  Working with ' + str(folder_path) + ' ...')
 
     folder_name = folder_path.name
@@ -32,6 +32,12 @@ def main():
 
     # Copy the frozen modules
     shutil.copytree(folder_path.joinpath("frozen"), micropy_path.joinpath("frozen"))
+
+    # Rename all .pyi files to .py
+    files = micropy_path.glob("**/*.pyi")
+    
+    for file in files:
+        os.rename(file, str(file).replace(".pyi", ".py"))
 
     # Create version.json by copying from the root of the repo
     shutil.copyfile(folder_path.joinpath("version.json"), micropy_path.joinpath("version.json"))
@@ -96,8 +102,6 @@ def main():
     copy_to_pylance_folder(frozen_path.joinpath("typing_extensions.pyi"), pylance_path)
 
 def process_json(file):
-    print('  Writing ' + file)
-
     data = None
 
     with open(file) as input_file:
