@@ -1,7 +1,7 @@
 """
-Module: 'machine' on micropython-rp2-1.13-290
+Module: 'machine' on micropython-rp2-1.14
 """
-# MCU: {'family': 'micropython', 'sysname': 'rp2', 'version': '1.13.0', 'build': '290', 'mpy': 5125, 'port': 'rp2', 'platform': 'rp2', 'name': 'micropython', 'arch': 'armv7m', 'machine': 'Raspberry Pi Pico with RP2040', 'nodename': 'rp2', 'ver': '1.13-290', 'release': '1.13.0'}
+# MCU: {'family': 'micropython', 'sysname': 'rp2', 'version': '1.14.0', 'build': '', 'mpy': 5637, 'port': 'rp2', 'platform': 'rp2', 'name': 'micropython', 'arch': 'armv7m', 'machine': 'Raspberry Pi Pico with RP2040', 'nodename': 'rp2', 'ver': '1.14', 'release': '1.14.0'}
 # Stubber: 1.3.9
 
 class ADC:
@@ -89,6 +89,12 @@ class Pin:
         pass
 
     def low():
+        pass
+
+    def off():
+        pass
+
+    def on():
         pass
 
     def toggle():
@@ -227,7 +233,22 @@ WDT_RESET = 3
 def bootloader():
     pass
 
+def deepsleep():
+    pass
+
+def disable_irq():
+    pass
+
+def enable_irq():
+    pass
+
 def freq():
+    pass
+
+def idle():
+    pass
+
+def lightsleep():
     pass
 
 mem16 = None
@@ -237,5 +258,14 @@ def reset():
     pass
 
 def reset_cause():
+    pass
+
+def soft_reset():
+    pass
+
+def time_pulse_us():
+    pass
+
+def unique_id():
     pass
 

@@ -10,13 +10,6 @@ def countdown():
 
     # Add Pico module
     stubber.add_modules(['rp2'])
-
-    # Remove ujson since we've provided a pollyfill
-    stubber.modules.remove('ujson')
-
-    # Remove since we've got a frozen version with
-    # __getitem__ and __setitem__ defined.
-    stubber.modules.remove('array')
     
     stubber.clean()
     stubber.create_all_stubs()
