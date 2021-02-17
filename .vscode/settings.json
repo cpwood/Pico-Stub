@@ -1,0 +1,11 @@
+{
+    "python.linting.enabled": true,
+    "python.analysis.typeshedPaths": [
+        "dist/pylance"
+    ],
+    "python.languageServer": "Pylance",
+    "python.analysis.typeCheckingMode": "basic",
+    "python.analysis.extraPaths": [
+        "dist/pylance/stubs"
+    ]   
+}
