@@ -82,6 +82,7 @@ def main():
     shutil.copyfile(frozen_path.joinpath("time.pyi"), pylance_path.joinpath("stdlib", "time.pyi"))
     shutil.copyfile(frozen_path.joinpath("types.pyi"), pylance_path.joinpath("stdlib", "types.pyi"))
     shutil.copyfile(frozen_path.joinpath("typing.pyi"), pylance_path.joinpath("stdlib", "typing.pyi"))
+    shutil.copyfile(frozen_path.joinpath("uarray.pyi"), pylance_path.joinpath("stdlib", "uarray.pyi"))
     shutil.copyfile(frozen_path.joinpath("ubinascii.pyi"), pylance_path.joinpath("stdlib", "ubinascii.pyi"))
     shutil.copyfile(frozen_path.joinpath("uctypes.pyi"), pylance_path.joinpath("stdlib", "uctypes.pyi"))
     shutil.copyfile(frozen_path.joinpath("uhashlib.pyi"), pylance_path.joinpath("stdlib", "uhashlib.pyi"))
