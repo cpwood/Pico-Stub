@@ -1,6 +1,5 @@
 import json
 import os
-import sys
 import shutil
 from pathlib import Path
 
@@ -39,8 +38,8 @@ def main():
     for file in files:
         os.rename(file, str(file).replace(".pyi", ".py"))
 
-    # Create version.json by copying from the root of the repo
-    shutil.copyfile(folder_path.joinpath("version.json"), micropy_path.joinpath("version.json"))
+    # Write version file
+    write_version_file(folder_path.joinpath("package.json"), micropy_path.joinpath("version.json"))
 
     print('  Processing Pylance ...')
 
@@ -51,8 +50,8 @@ def main():
     os.mkdir(pylance_path.joinpath("stdlib"))
     os.mkdir(pylance_path.joinpath("stubs"))
 
-    # Create version.json by copying from the root of the repo
-    shutil.copyfile(folder_path.joinpath("version.json"), pylance_path.joinpath("version.json"))
+    # Write version file
+    write_version_file(folder_path.joinpath("package.json"), pylance_path.joinpath("version.json"))
 
     # Copy frozen items to their respective destinations
     # stdlib
@@ -125,6 +124,18 @@ def copy_to_pylance_folder(frozen_file: Path, pylance_path: Path):
     folder_name = frozen_file.name.replace(".pyi", "")
     os.mkdir(pylance_path.joinpath("stubs", folder_name))
     shutil.copyfile(frozen_file, pylance_path.joinpath("stubs", folder_name, frozen_file.name))
+
+def write_version_file(package_path: Path, destination_path: Path):
+    pkg = None
+
+    with open(str(package_path)) as input_file:
+        pkg = json.load(input_file)
+
+    vers = {}
+    vers['version'] = pkg['version']
+
+    with open(str(destination_path), 'w+') as output_file:
+        json.dump(vers, output_file)
 
 if __name__ == "__main__":
     main()
