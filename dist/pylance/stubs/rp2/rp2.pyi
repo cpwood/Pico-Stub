@@ -54,6 +54,9 @@ class PIO:
     OUT_LOW = 2
     SHIFT_LEFT = 0
     SHIFT_RIGHT = 1
+    JOIN_NONE = 0
+    JOIN_TX = 1
+    JOIN_RX = 2
 
     def __init__(self, pin:int) -> None: 
         ...
@@ -220,6 +223,7 @@ def asm_pio(
     autopull: bool = False,
     push_thresh: int = 32,
     pull_thresh: int = 32,
+    fifo_join=0,
 ) -> Any:
     """
     This decorator lets MicroPython know that the method is written in PIO assembly.
