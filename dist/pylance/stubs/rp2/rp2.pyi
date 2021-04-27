@@ -210,7 +210,17 @@ class StateMachine:
             - *shift* is an optional number of places to shift.
         """
 
-def asm_pio(set_init: int = None, out_shiftdir: int = None, autopull: bool = None, pull_thresh: int = None, set_pins: Iterable[Sequence[int]] = None, sideset_pins: int = None, sideset_init: int = None, out_init: int = None, autopush: bool = None, push_thresh: int = None, in_base: int = None, out_base: int = None) -> Any:
+def asm_pio(
+    out_init: int = None,
+    set_init: int = None,
+    sideset_init: int = None,
+    in_shiftdir: int = 0,
+    out_shiftdir: int = 0,
+    autopush: bool = False,
+    autopull: bool = False,
+    push_thresh: int = 32,
+    pull_thresh: int = 32,
+) -> Any:
     """
     This decorator lets MicroPython know that the method is written in PIO assembly.
 
