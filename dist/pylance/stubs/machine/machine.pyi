@@ -103,12 +103,12 @@ class Pin:
         Initialises the pin.
         """
 
-    def irq(self, lambdaFunction, direction: int):
+    def irq(self, handler: Callable, trigger: int) -> Callable:
         """
         Sets an interrupt for when the pin is rising or falling.
 
-            - ``lambdaFunction`` the code to execute when the interrupt happens.
-            - ``direction`` either ``IRQ_RISING`` or ``IRQ_FALLING``
+            - ``handler`` the code to execute when the interrupt happens.
+            - ``trigger`` either ``IRQ_RISING`` or ``IRQ_FALLING``
         """
 
     def low(self):
