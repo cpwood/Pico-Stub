@@ -1,3 +1,4 @@
+from uarray import array
 from machine import Pin
 from typing import Sequence, Any, Iterable, Union
 
@@ -205,7 +206,7 @@ class StateMachine:
             - *shift* is an optional number of places to shift.
         """
     
-    def put(self, value: Union[bytes, int], shift: int=0):
+    def put(self, value: Union[bytes, int | array[int]], shift: int=0):
         """
         Sets data within the ``StateMachine``.
 
