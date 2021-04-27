@@ -213,6 +213,25 @@ class StateMachine:
             - *buf* are optional bytes
             - *shift* is an optional number of places to shift.
         """
+    def restart(self):
+        """
+        ``Restarts`` the state machine.
+
+            - it resets the statemachine to the initial state without the need to re-instantiation.
+            - It also makes PIO code easier, because then stalling as error state can be unlocked.
+        """
+    def rx_fifo(self) -> int:
+        """
+        Return the number of ``RX FIFO`` items. 0 if empty
+
+            - rx_fifo() is also useful, for MP code to check for data & timeout if no data arrived. 
+        """
+    def tx_fifo(self) -> int:
+        """
+        Return the number of ``TX FIFO`` items. 0 if empty
+
+            - tx_fifo() can be useful to check states where data is not processed.
+        """
 
 def asm_pio(
     out_init: int = None,
