@@ -1493,7 +1493,7 @@ def deepsleep(time_ms: int = None) -> None:
      from other resets.
    """
 
-def lightleep(time_ms: int = None) -> None:
+def lightsleep(time_ms: int = None) -> None:
    """
    Stops execution in an attempt to enter a low power state.
 
