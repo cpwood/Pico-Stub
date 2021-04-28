@@ -103,12 +103,13 @@ class Pin:
         Initialises the pin.
         """
 
-    def irq(self, handler: Callable, trigger: int) -> Callable:
+    def irq(self, handler: Callable, trigger: int, hard: bool = False) -> Callable:
         """
         Sets an interrupt for when the pin is rising or falling.
 
             - ``handler`` the code to execute when the interrupt happens.
             - ``trigger`` either ``IRQ_RISING`` or ``IRQ_FALLING``
+            - ``hard`` if true a hardware interrupt is used. This reduces the delay between the pin change and the handler being called.
         """
 
     def low(self):
