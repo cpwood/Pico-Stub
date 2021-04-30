@@ -858,56 +858,66 @@ class I2C:
       """
 
 class PWM:
-    """
-    This class provides pulse width modulation output.
+   """
+   This class provides pulse width modulation output.
 
-    Example usage::
+   Example usage::
 
-        from machine import PWM
+      from machine import PWM
 
-        pwm = PWM(pin)          # create a PWM object on a pin
-        pwm.duty_u16(32768)     # set duty to 50%
+      pwm = PWM(pin)          # create a PWM object on a pin
+      pwm.duty_u16(32768)     # set duty to 50%
 
-        # reinitialise with a period of 200us, duty of 5us
-        pwm.init(freq=5000, duty_ns=5000)
+      # reinitialise with a period of 200us, duty of 5us
+      pwm.init(freq=5000, duty_ns=5000)
 
-        pwm.duty_ns(3000)       # set pulse width to 3us
+      pwm.duty_ns(3000)       # set pulse width to 3us
 
-        pwm.deinit()
-    """
+      pwm.deinit()
+   """
 
-    def __init__(self, pin: Pin):
-        """
-        Construct and return a new PWM object using the following parameters:
+   def __init__(self, pin: Pin):
+      """
+      Construct and return a new PWM object using the following parameters:
 
-           - *pin* should be the pin to use.
-        """
-    def deinit(self) -> None:
-        """
-        Disable the PWM output.
-        """
-    def freq(self, frequency: Optional[int]):
-        """
-        With no arguments the frequency in Hz is returned.
+         - *pin* should be the pin to use.
+      """
+   @overload
+   def init(self, freq: Optional[int]):
+      """
+         - ''freq'' is set to that value in Hz.
+         - Set the current pulse width of the PWM output, as a value in ''nanoseconds''.
+      """
+   @overload
+   def init(self, freq: Optional[int], duty_ns: Optional[int]):
+      """
+      """
+   def deinit(self) -> None:
+      """
+      Disable the PWM output.
+      """
+   def freq(self, frequency: Optional[int]):
+      """
+      With no arguments the frequency in Hz is returned.
 
-        With a single *value* argument the frequency is set to that value in Hz.  The method may raise a ``ValueError`` if the frequency is outside the valid range.
-        """
-    def duty_u16(self, duration: Optional[int]):
-        """
-        Get or Set the current duty cycle of the PWM output, as an unsigned 16-bit value in the range 0 to 65535 inclusive.
+      With a single *value* argument the frequency is set to that value in Hz.  The method may raise a ``ValueError`` if the frequency is outside the valid range.
+      """
+   def duty_u16(self, duration: Optional[int]):
+      """
+      Get or Set the current duty cycle of the PWM output, as an unsigned 16-bit value in the range 0 to 65535 inclusive.
 
-        With no arguments the duty cycle is returned.
+      With no arguments the duty cycle is returned.
 
-        With a single *value* argument the duty cycle is set to that value, measured as the ratio ``value / 65535``.
-        """
-    def duty_ns(self, duration: Optional[int]):
-        """
-        Get or Set the current pulse width of the PWM output, as a value in nanoseconds.
+      With a single *value* argument the duty cycle is set to that value, measured as the ratio ``value / 65535``.
+      """
+   def duty_ns(self, duration: Optional[int]):
+      """
+      Get or Set the current pulse width of the PWM output, as a value in nanoseconds.
 
-        With no arguments the pulse width in nanoseconds is returned.
+      With no arguments the pulse width in nanoseconds is returned.
 
-        With a single *value* argument the pulse width is set to that value.
-        """
+      With a single *value* argument the pulse width is set to that value.
+      """
 
 
 class SoftI2C:
