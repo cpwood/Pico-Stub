@@ -1,7 +1,7 @@
 """
-Module: 'uasyncio.__init__' on micropython-rp2-1.14
+Module: 'uasyncio.__init__' on micropython-rp2-1.15
 """
-# MCU: {'family': 'micropython', 'sysname': 'rp2', 'version': '1.14.0', 'build': '', 'mpy': 5637, 'port': 'rp2', 'platform': 'rp2', 'name': 'micropython', 'arch': 'armv7m', 'machine': 'Raspberry Pi Pico with RP2040', 'nodename': 'rp2', 'ver': '1.14', 'release': '1.14.0'}
+# MCU: {'family': 'micropython', 'sysname': 'rp2', 'version': '1.15.0', 'build': '', 'mpy': 5637, 'port': 'rp2', 'platform': 'rp2', 'name': 'micropython', 'arch': 'armv7m', 'machine': 'Raspberry Pi Pico with RP2040', 'nodename': 'rp2', 'ver': '1.15', 'release': '1.15.0'}
 # Stubber: 1.3.9
 
 class CancelledError:
@@ -146,10 +146,23 @@ class TaskQueue:
         pass
 
 
+class ThreadSafeFlag:
+    ''
+    def ioctl():
+        pass
+
+    def set():
+        pass
+
+    wait = None
+
 class TimeoutError:
     ''
 _attrs = None
 def create_task():
+    pass
+
+def current_task():
     pass
 
 gather = None

@@ -1,6 +1,6 @@
 {
   "name": "pico-stub",
-  "version": "1.14.1",
+  "version": "1.15.0",
   "description": "MicroPython stubs for the Raspberry Pi Pico",
   "scripts": {
     "post-process": "python3 post-process.py"

@@ -1,11 +1,13 @@
 {
     "python.linting.enabled": true,
     "python.analysis.typeshedPaths": [
-        "dist/pylance"
+        "dist/pylance",
+        ".vscode/Pico-Stub"
     ],
     "python.languageServer": "Pylance",
     "python.analysis.typeCheckingMode": "basic",
     "python.analysis.extraPaths": [
-        "dist/pylance/stubs"
-    ]   
+        "dist/pylance/stubs",
+        ".vscode/Pico-Stub/stubs"
+    ]
 }

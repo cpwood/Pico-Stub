@@ -1,7 +1,7 @@
 """
-Module: 'builtins' on micropython-rp2-1.14
+Module: 'builtins' on micropython-rp2-1.15
 """
-# MCU: {'family': 'micropython', 'sysname': 'rp2', 'version': '1.14.0', 'build': '', 'mpy': 5637, 'port': 'rp2', 'platform': 'rp2', 'name': 'micropython', 'arch': 'armv7m', 'machine': 'Raspberry Pi Pico with RP2040', 'nodename': 'rp2', 'ver': '1.14', 'release': '1.14.0'}
+# MCU: {'family': 'micropython', 'sysname': 'rp2', 'version': '1.15.0', 'build': '', 'mpy': 5637, 'port': 'rp2', 'platform': 'rp2', 'name': 'micropython', 'arch': 'armv7m', 'machine': 'Raspberry Pi Pico with RP2040', 'nodename': 'rp2', 'ver': '1.15', 'release': '1.15.0'}
 # Stubber: 1.3.9
 
 class ArithmeticError:
@@ -118,6 +118,9 @@ class bytearray:
 
 class bytes:
     ''
+    def center():
+        pass
+
     def count():
         pass
 
@@ -160,6 +163,9 @@ class bytes:
     def lstrip():
         pass
 
+    def partition():
+        pass
+
     def replace():
         pass
 
@@ -169,6 +175,9 @@ class bytes:
     def rindex():
         pass
 
+    def rpartition():
+        pass
+
     def rsplit():
         pass
 
@@ -176,6 +185,9 @@ class bytes:
         pass
 
     def split():
+        pass
+
+    def splitlines():
         pass
 
     def startswith():
@@ -196,6 +208,9 @@ def chr():
 
 class classmethod:
     ''
+def compile():
+    pass
+
 
 class complex:
     ''
@@ -259,6 +274,33 @@ class filter:
 
 class float:
     ''
+
+class frozenset:
+    ''
+    def copy():
+        pass
+
+    def difference():
+        pass
+
+    def intersection():
+        pass
+
+    def isdisjoint():
+        pass
+
+    def issubset():
+        pass
+
+    def issuperset():
+        pass
+
+    def symmetric_difference():
+        pass
+
+    def union():
+        pass
+
 def getattr():
     pass
 
@@ -469,6 +511,9 @@ class staticmethod:
 
 class str:
     ''
+    def center():
+        pass
+
     def count():
         pass
 
@@ -511,6 +556,9 @@ class str:
     def lstrip():
         pass
 
+    def partition():
+        pass
+
     def replace():
         pass
 
@@ -520,6 +568,9 @@ class str:
     def rindex():
         pass
 
+    def rpartition():
+        pass
+
     def rsplit():
         pass
 
@@ -527,6 +578,9 @@ class str:
         pass
 
     def split():
+        pass
+
+    def splitlines():
         pass
 
     def startswith():

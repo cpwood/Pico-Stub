@@ -1,7 +1,7 @@
 """
-Module: 'rp2' on micropython-rp2-1.14
+Module: 'rp2' on micropython-rp2-1.15
 """
-# MCU: {'family': 'micropython', 'sysname': 'rp2', 'version': '1.14.0', 'build': '', 'mpy': 5637, 'port': 'rp2', 'platform': 'rp2', 'name': 'micropython', 'arch': 'armv7m', 'machine': 'Raspberry Pi Pico with RP2040', 'nodename': 'rp2', 'ver': '1.14', 'release': '1.14.0'}
+# MCU: {'family': 'micropython', 'sysname': 'rp2', 'version': '1.15.0', 'build': '', 'mpy': 5637, 'port': 'rp2', 'platform': 'rp2', 'name': 'micropython', 'arch': 'armv7m', 'machine': 'Raspberry Pi Pico with RP2040', 'nodename': 'rp2', 'ver': '1.15', 'release': '1.15.0'}
 # Stubber: 1.3.9
 
 class Flash:
@@ -24,6 +24,9 @@ class PIO:
     IRQ_SM1 = 512
     IRQ_SM2 = 1024
     IRQ_SM3 = 2048
+    JOIN_NONE = 0
+    JOIN_RX = 2
+    JOIN_TX = 1
     OUT_HIGH = 3
     OUT_LOW = 2
     SHIFT_LEFT = 0
@@ -116,6 +119,15 @@ class StateMachine:
         pass
 
     def put():
+        pass
+
+    def restart():
+        pass
+
+    def rx_fifo():
+        pass
+
+    def tx_fifo():
         pass
 
 _pio_funcs = None

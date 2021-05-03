@@ -1,6 +1,6 @@
 """
 
-functions related to the hardware
+Functions related to the hardware.
 
 Descriptions taken from 
 `https://raw.githubusercontent.com/micropython/micropython/master/docs/library/machine.rst`, etc.
@@ -859,7 +859,9 @@ class I2C:
 
 class PWM:
    """
-   This class provides pulse width modulation output.
+   Pulse width modulation (PWM), allows you to give analogue behaviours to digital 
+   devices, such as LEDs. This means that rather than an LED being simply on or 
+   off, you can control its brightness.
 
    Example usage::
 
@@ -882,26 +884,19 @@ class PWM:
 
          - *pin* should be the pin to use.
       """
-   @overload
-   def init(self, freq: Optional[int]):
-      """
-         - ''freq'' is set to that value in Hz.
-         - Set the current pulse width of the PWM output, as a value in ''nanoseconds''.
-      """
-   @overload
-   def init(self, freq: Optional[int], duty_ns: Optional[int]):
-      """
-      """
+
    def deinit(self) -> None:
-      """
-      Disable the PWM output.
-      """
+         """
+         Disable the PWM output.
+         """
+         
    def freq(self, frequency: Optional[int]):
       """
       With no arguments the frequency in Hz is returned.
 
       With a single *value* argument the frequency is set to that value in Hz.  The method may raise a ``ValueError`` if the frequency is outside the valid range.
       """
+
    def duty_u16(self, duration: Optional[int]):
       """
       Get or Set the current duty cycle of the PWM output, as an unsigned 16-bit value in the range 0 to 65535 inclusive.
@@ -910,6 +905,7 @@ class PWM:
 
       With a single *value* argument the duty cycle is set to that value, measured as the ratio ``value / 65535``.
       """
+
    def duty_ns(self, duration: Optional[int]):
       """
       Get or Set the current pulse width of the PWM output, as a value in nanoseconds.
@@ -919,6 +915,65 @@ class PWM:
       With a single *value* argument the pulse width is set to that value.
       """
 
+class Signal:
+   """
+   The ``Signal`` class is a simple extension of the ``Pin`` class. Unlike Pin, which can 
+   be only in “absolute” 0 and 1 states, a Signal can be in “asserted” (on) or 
+   “deasserted” (off) states, while being inverted (active-low) or not. 
+   
+   In other words, it adds logical inversion support to Pin functionality. 
+   
+   While this may seem a simple addition, it is exactly what is needed to support 
+   wide array of simple digital devices in a way portable across different boards, 
+   which is one of the major MicroPython goals. 
+   
+   Regardless of whether different users have an active-high or active-low LED, a 
+   normally open or normally closed relay - you can develop a single, nicely looking 
+   application which works with each of them, and capture hardware configuration 
+   differences in few lines in the config file of your app.
+   """
+
+   @overload
+   def __init__(self, pin_obj: Pin, invert: bool = False):
+      """
+      Create a ``Signal`` object by wrapping existing ``Pin`` object.
+      """
+
+   @overload
+   def __init__(self, id: Union[int, str], /, mode: int = Pin.IN, pull: int = Pin.PULL_UP, af: Union[str, int] = -1, invert: bool = False):
+      """
+      Create a ``Signal`` object by passing required ``Pin`` parameters directly 
+      to ``Signal`` constructor, skipping the need to create intermediate ``Pin`` object.
+      """
+
+   def off(self):
+      """
+      Deactivate signal.
+      """
+
+   def on(self):
+      """
+      Activate signal.
+      """
+
+   def value(self, x: Any):
+      """
+      This method allows to set and get the value of the signal, depending on whether 
+      the argument ``x`` is supplied or not.
+
+      If the argument is omitted then this method gets the signal level, ``1`` meaning signal 
+      is asserted (active) and ``0`` meaning signal inactive.
+
+      If the argument is supplied then this method sets the signal level. The argument ``x`` can 
+      be anything that converts to a boolean. If it converts to ``True``, the signal is active, 
+      otherwise it is inactive.
+
+      Correspondence between signal being active and actual logic level on the underlying pin 
+      depends on whether signal is inverted (active-low) or not. For non-inverted signal, 
+      active status corresponds to logical ``1``, inactive to logical ``0``. For 
+      inverted/active-low signal, active status corresponds to logical ``0``, while inactive 
+      corresponds to logical ``1``.
+      """
 
 class SoftI2C:
    """
@@ -1351,6 +1406,9 @@ class UART:
     - *rx* specifies the RX pin to use.
    """
 
+   INV_TX = 1
+   INV_RX = 2
+
    def any(self) -> int:
       """
       Returns the number of bytes waiting (may be 0).
@@ -1494,7 +1552,7 @@ def deepsleep(time_ms: int = None) -> None:
      from other resets.
    """
 
-def lightsleep(time_ms: int = None) -> None:
+def lightleep(time_ms: int = None) -> None:
    """
    Stops execution in an attempt to enter a low power state.
 
